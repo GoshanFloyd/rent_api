@@ -15,6 +15,10 @@
     "mongoose": "",
     "require.js": "^1.0.0"
   },
-  "author": "",
-  "license": "MIT"
+  "author": "GoshanFloyd",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GoshanFloyd/rent_api"
+  }
 }
