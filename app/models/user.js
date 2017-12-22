@@ -9,7 +9,7 @@ var UserSchema = new Schema({
     password: String,
     user_id: Number,
     note: String,
-    created_date: Date,
+    created_date: { type: Date, default: Date.now },
     avatar_image: String,
     blocked: Boolean
 });
