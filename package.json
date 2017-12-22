@@ -10,6 +10,7 @@
   "dependencies": {
     "body-parser": "",
     "express": "",
+    "jsonwebtoken": "^8.1.0",
     "mongoose": "",
     "require.js": "^1.0.0"
   },
