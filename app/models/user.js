@@ -10,7 +10,8 @@ var UserSchema = new Schema({
     user_id: Number,
     note: String,
     created_date: Date,
-    avatar_image: String
+    avatar_image: String,
+    blocked: Boolean
 });
 
 module.exports = mongoose.model('User', UserSchema);

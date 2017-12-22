@@ -3,11 +3,13 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var helmet = require('helmet');
 
 var userController = require('./app/controllers/userController');
 
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
+app.use(helmet());
 
 var port = process.env.PORT || 7400;
 
