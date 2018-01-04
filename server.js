@@ -13,7 +13,6 @@ app.use(helmet());
 
 var port = process.env.PORT || 7400;
 
-// EXAMPLE GROUPING ROUTER
 app.use('/api/user', userController);
 
 app.use(function(err, req, res, next) {
