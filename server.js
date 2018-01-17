@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 app.use(helmet());
 
-var port = process.env.PORT || 7400;
+var port = process.env.PORT || 8200;
 
 app.use('/api/user', userController);
 
@@ -21,5 +21,3 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(port);
-
-console.log('Magic happens on port ' + port);

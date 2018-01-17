@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-mongoose.connect('mongodb://localhost/rentapi');
+mongoose.connect('mongodb://localhost/rentapi', {useMongoClient: true});
 
 var ProductSchema = new Schema({
     product_id: Number,

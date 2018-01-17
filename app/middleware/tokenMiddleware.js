@@ -10,9 +10,7 @@ var checkToken = function (token) {
             status: true
         };
     } catch(err) {
-        return {
-            status: false
-        };
+        return false
     }
 };
 
