@@ -46,7 +46,7 @@ userController // Main controller on user action's
                 'id': user._id
             };
 
-            var token = jwt.sign(response, 'rent_api_24_develop_secret_key');
+            var token = jwt.sign(response, secret_key);
 
             return res.json({
                 token: token
