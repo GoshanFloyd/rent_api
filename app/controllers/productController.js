@@ -10,8 +10,7 @@ productController.use(function(req, res, next) {
         next()
     }
     else{
-        res.status(403);
-        res.send('Failed token auth')
+        res.status(403).send('Failed token auth')
     }
 
 });
@@ -33,8 +32,7 @@ productController
 
         Product.find({author: token.id},function (err, products) {
             if (err){
-                res.status(500);
-                res.send('Error in server')
+                res.status(500).send('Error in server')
             }
 
             res.send(products);
@@ -73,8 +71,7 @@ productController
 
         newProduct.save(function (err) {
             if (err) {
-                res.status(500);
-                res.send('Error in save product')
+                res.status(500).send('Error in save product')
             }
         });
 

@@ -14,8 +14,7 @@ userController.use(function(req, res, next) {
             next()
         }
         else{
-            res.status(403);
-            res.send('Failed token auth')
+            res.status(403).send('Failed token auth')
         }
     }
 });
@@ -67,8 +66,7 @@ userController // Main controller on user action's
             var token = jwt.verify(req.headers.token, secret_key);
         }
         catch (err){
-            res.status(500);
-            res.send('Failed token');
+            res.status(500).send('Failed token');
         }
 
 
