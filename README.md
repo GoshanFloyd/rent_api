@@ -1,4 +1,4 @@
-# rent_api
+# REST-Full API BeruRent-(Rent24)
 REST-Full API for BeruRent (or Rent24).
 
 Based on node.js platform.
