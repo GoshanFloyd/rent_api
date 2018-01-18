@@ -3,6 +3,7 @@ var userController = express.Router();
 var jwt = require('jsonwebtoken');
 var User = require('../models/user');
 var tokenMiddleware = require('../middleware/tokenMiddleware');
+var secret_key = require('../settings/consts').secret_key;
 
 userController.use(function(req, res, next) {
     if(req.url === '/auth'){
@@ -19,7 +20,17 @@ userController.use(function(req, res, next) {
     }
 });
 
-userController
+userController // Main controller on user action's
+
+    /**
+        User auth
+        @method: POST
+        @param:
+            @type username: <string>
+            @type password: <string>
+        @return
+            @type token: <string>
+    **/
     .post('/auth',function(req,res){
 
         User.findOne({username: req.body.username, password: req.body.password},function (err, user) {
@@ -39,17 +50,50 @@ userController
         })
 
     })
+
+    /**
+        Get current user information
+        @method: GET
+        @params:
+            @type token: <string>
+        @return:
+            @type user: <User>
+     **/
+
     .get('/', function (req, res) {
-        User.find({}, function (err, docs) {
-            res.send(docs)
+
+        try{
+            var token = jwt.verify(req.headers.token, secret_key);
+        }
+        catch (err){
+            res.status(500);
+            res.send('Failed token');
+        }
+
+
+        User.findOne({username: token.username, password: token.password}, function (err, user) {
+            res.send(user)
         })
 
     })
+
+    /**
+        Create user
+        @method: POST
+        @param:
+            @type nickname: <string>
+            @type username: <string>
+            @type password: <string>
+            @type avatar_image: <file>
+        @return:
+            @type user: <User>
+     **/
+
     .post('/',function (req, res) {
         User.create({
-            nickname: 'Test user',
-            username: 'egorkulik9696@gmail.com',
-            password: 'Qwe123',
+            nickname: req.body.nickname,
+            username: req.body.username,
+            password: req.body.password,
             role: 'user',
             avatar_image: null,
             blocked: false

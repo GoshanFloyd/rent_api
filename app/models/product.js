@@ -4,12 +4,12 @@ var Schema = mongoose.Schema;
 mongoose.connect('mongodb://localhost/rentapi', {useMongoClient: true});
 
 var ProductSchema = new Schema({
-    product_id: Number,
     description: String,
     title: String,
     price: Number,
     category: { type : Array , "default" : [] },
-    status: { type: Boolean, "default": false}
+    status: { type: Boolean, "default": null},
+    images: { type: Array, "default": []}
 });
 
 module.exports = mongoose.model('Product', ProductSchema);

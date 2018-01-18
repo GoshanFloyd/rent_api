@@ -1,6 +1,6 @@
 var jwt = require('jsonwebtoken');
 
-var secret_key = 'rent_api_24_develop_secret_key';
+var secret_key = require('../settings/consts').secret_key;
 
 var checkToken = function (token) {
     try {
