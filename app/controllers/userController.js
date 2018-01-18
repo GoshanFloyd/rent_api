@@ -34,6 +34,10 @@ userController // Main controller on user action's
 
         User.findOne({username: req.body.username, password: req.body.password},function (err, user) {
 
+            if(err){
+                res.status(404).send('User not found')
+            }
+
             var response = {
                 'username': user.username,
                 'password': user.password,
@@ -71,6 +75,11 @@ userController // Main controller on user action's
 
 
         User.findOne({username: token.username, password: token.password}, function (err, user) {
+
+            if(err){
+                res.status(404).send('User not found');
+            }
+
             res.send(user)
         })
 
@@ -98,7 +107,9 @@ userController // Main controller on user action's
             blocked: false
         }, function (err, user) {
 
-            if (err) throw err;
+            if (err) {
+                res.status(500).send('Error on create user')
+            }
 
             res.send({
                 status: 'done',
