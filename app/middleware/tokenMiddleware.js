@@ -1,5 +1,4 @@
 var jwt = require('jsonwebtoken');
-
 var secret_key = require('../settings/consts').secret_key;
 
 var checkToken = function (token) {

@@ -39,7 +39,8 @@ userController // Main controller on user action's
                 'username': user.username,
                 'password': user.password,
                 'role': user.role,
-                'blocked': user.blocked
+                'blocked': user.blocked,
+                'id': user._id
             };
 
             var token = jwt.sign(response, 'rent_api_24_develop_secret_key');
@@ -54,7 +55,7 @@ userController // Main controller on user action's
     /**
         Get current user information
         @method: GET
-        @params:
+        @param:
             @type token: <string>
         @return:
             @type user: <User>
