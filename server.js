@@ -19,7 +19,7 @@ var port = process.env.PORT || 8200;
 app.use('/api/user', userController);
 app.use('/api/product', productController);
 app.use('/api/category', categoryController);
-app.user('/api/comment', commentController);
+app.use('/api/comment', commentController);
 
 app.use(function(err, req, res, next) {
     console.error(err.stack);
