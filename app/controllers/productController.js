@@ -38,6 +38,11 @@ productController
             res.send(products);
         })
     })
+    .get('/all', function (req, res) {
+        Product.find({}).limit(100).exec(function (err, docs) {
+            res.send(docs)
+        })
+    })
     /**
      *  Add product
      *  @method: POST
@@ -76,6 +81,27 @@ productController
         });
 
         res.send(newProduct)
+    })
+
+    .put('/', function (req, res) {
+        Product.findById(req.body.id, function (err, doc) {
+            if (req.body.title){
+                doc.title = req.body.title
+            }
+            if (req.body.description){
+                doc.description = req.body.description
+            }
+            if(req.body.price){
+                doc.price = req.body.price
+            }
+            if (req.body.category){
+                doc.category = req.body.category
+            }
+            doc.save(function (err, updateDoc) {
+                if (err) return handleError(err);
+                res.send(updateDoc);
+            });
+        })
     });
 
 module.exports = productController;
