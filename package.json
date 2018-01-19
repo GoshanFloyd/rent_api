@@ -1,6 +1,6 @@
 {
   "name": "rent_api",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "rest-api for berurent",
   "main": "server.js",
   "scripts": {
