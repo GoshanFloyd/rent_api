@@ -5,7 +5,7 @@ mongoose.connect('mongodb://localhost/rentapi', { useMongoClient: true});
 
 var CategorySchema = new Schema({
     title: String,
-    parent_category: { type: Schema.Types.ObjectId, ref: 'Category' },
+    parent_category: { type: Schema.Types.ObjectId, ref: 'Category', "default": null },
     created_date: { type: Date, "default": Date.now }
 });
 
