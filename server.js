@@ -8,6 +8,7 @@ var helmet = require('helmet');
 var userController = require('./app/controllers/userController');
 var productController = require('./app/controllers/productController');
 var categoryController = require('./app/controllers/categoryController');
+var commentController = require('./app/controllers/commentController');
 
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
@@ -17,7 +18,8 @@ var port = process.env.PORT || 8200;
 
 app.use('/api/user', userController);
 app.use('/api/product', productController);
-app.use('/api/category',categoryController);
+app.use('/api/category', categoryController);
+app.user('/api/comment', commentController);
 
 app.use(function(err, req, res, next) {
     console.error(err.stack);

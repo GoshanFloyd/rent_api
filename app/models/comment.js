@@ -6,6 +6,7 @@ mongoose.connect('mongodb://localhost/rentapi', {useMongoClient: true});
 var CommentSchema = new Schema({
     author: { type: Schema.Types.ObjectId, ref: 'User' },
     description: String,
+    product: {type: Schema.Types.ObjectId, ref: 'Product'},
     created_date: { type: Date, "default": Date.now}
 });
 
