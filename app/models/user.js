@@ -10,7 +10,8 @@ var UserSchema = new Schema({
     role: String,
     created_date: { type: Date, default: Date.now },
     avatar_image: String,
-    blocked: Boolean
+    blocked: Boolean,
+    phone: String
 });
 
 var User = mongoose.model('User', UserSchema);

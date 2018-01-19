@@ -11,7 +11,8 @@ var ProductSchema = new Schema({
     created_date: { type: Date, "default": Date.now },
     category: { type : Array , "default" : [] },
     status: { type: Boolean, "default": null },
-    images: { type: Array, "default": [] }
+    images: { type: Array, "default": [] },
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment'}]
 });
 
 module.exports = mongoose.model('Product', ProductSchema);

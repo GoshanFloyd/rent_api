@@ -43,6 +43,7 @@ userController // Main controller on user action's
                 'password': user.password,
                 'role': user.role,
                 'blocked': user.blocked,
+                'phone': user.phone,
                 'id': user._id
             };
 
@@ -104,7 +105,8 @@ userController // Main controller on user action's
             password: req.body.password,
             role: 'user',
             avatar_image: null,
-            blocked: false
+            blocked: false,
+            phone: req.body.phone
         }, function (err, user) {
 
             if (err) {
