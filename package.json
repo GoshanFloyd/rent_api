@@ -9,10 +9,12 @@
   },
   "dependencies": {
     "body-parser": "",
+    "cors": "^2.8.4",
     "express": "",
     "helmet": "^3.9.0",
     "jsonwebtoken": "^8.1.0",
     "mongoose": "",
+    "multer": "^1.3.0",
     "require.js": "^1.0.0"
   },
   "author": "GoshanFloyd",

@@ -4,6 +4,8 @@ var jwt = require('jsonwebtoken');
 var Product = require('../models/product');
 var tokenMiddleware = require('../middleware/tokenMiddleware');
 var secret_key = require('../settings/consts').secret_key;
+var multer = require('multer');
+var upload = multer({ dest: 'uploads/' });
 
 productController.use(function(req, res, next) {
     if(tokenMiddleware(req.headers.token)){
@@ -30,7 +32,9 @@ productController
     .get('/',function (req, res) {
         var token = jwt.verify(req.headers.token, secret_key);
 
-        Product.find({author: token.id},function (err, products) {
+        Product.find({author: token._id},function (err, products) {
+
+            console.log(products);
             if (err){
                 res.status(500).send('Error in server')
             }
@@ -63,24 +67,27 @@ productController
      *
      *
      */
-    .post('/', function (req, res) {
+    .post('/', upload.array('photos'), function (req, res) {
         var token = jwt.verify(req.headers.token, secret_key);
 
-        var newProduct = new Product({
-            title: req.body.title,
-            description: req.body.description,
-            price: req.body.price,
-            category: req.body.category,
-            author: token.id
-        });
-
-        newProduct.save(function (err) {
-            if (err) {
-                res.status(500).send('Error in save product')
-            }
-        });
-
-        res.send(newProduct)
+        console.log(req.body);
+        console.log(req.files);
+        //
+        // var newProduct = new Product({
+        //     title: req.body.title,
+        //     description: req.body.description,
+        //     price: req.body.price,
+        //     category: req.body.category,
+        //     author: token.id
+        // });
+        //
+        // newProduct.save(function (err) {
+        //     if (err) {
+        //         res.status(500).send('Error in save product')
+        //     }
+        // });
+        //
+        // res.send(newProduct)
     })
 
     .put('/', function (req, res) {

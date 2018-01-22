@@ -11,7 +11,8 @@ var UserSchema = new Schema({
     created_date: { type: Date, default: Date.now },
     avatar_image: String,
     blocked: Boolean,
-    phone: String
+    phone: String,
+    money: { type: Number, default: 0}
 });
 
 var User = mongoose.model('User', UserSchema);

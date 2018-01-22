@@ -6,7 +6,10 @@ var tokenMiddleware = require('../middleware/tokenMiddleware');
 var secret_key = require('../settings/consts').secret_key;
 
 userController.use(function(req, res, next) {
-    if(req.url === '/auth'){
+
+    console.log(req.url);
+
+    if((req.url === '/auth' || req.url ==='/create')){
         next()
     }
     else{
@@ -98,7 +101,7 @@ userController // Main controller on user action's
             @type user: <User>
      **/
 
-    .post('/',function (req, res) {
+    .post('/create',function (req, res) {
         User.create({
             nickname: req.body.nickname,
             username: req.body.username,
@@ -106,14 +109,16 @@ userController // Main controller on user action's
             role: 'user',
             avatar_image: null,
             blocked: false,
-            phone: req.body.phone
+            phone: req.body.phone,
         }, function (err, user) {
 
             if (err) {
                 res.status(500).send('Error on create user')
             }
 
-            res.send({
+            console.log(user);
+
+            res.status(200).send({
                 status: 'done',
                 user: user
             })
