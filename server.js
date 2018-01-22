@@ -16,13 +16,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(helmet());
 app.use(cors());
-
 var port = process.env.PORT || 8200;
 
 app.use('/api/user', userController);
 app.use('/api/product', productController);
 app.use('/api/category', categoryController);
 app.use('/api/comment', commentController);
+
+app.use('/uploads', express.static('./uploads'));
 
 app.use(function(err, req, res, next) {
     console.error(err.stack);

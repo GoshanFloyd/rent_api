@@ -5,7 +5,17 @@ var Product = require('../models/product');
 var tokenMiddleware = require('../middleware/tokenMiddleware');
 var secret_key = require('../settings/consts').secret_key;
 var multer = require('multer');
-var upload = multer({ dest: 'uploads/' });
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now()+'-'+file.originalname);
+    }
+});
+
+var upload = multer({ storage: storage });
+
 
 productController.use(function(req, res, next) {
     if(tokenMiddleware(req.headers.token)){
@@ -70,24 +80,41 @@ productController
     .post('/', upload.array('photos'), function (req, res) {
         var token = jwt.verify(req.headers.token, secret_key);
 
-        console.log(req.body);
-        console.log(req.files);
-        //
-        // var newProduct = new Product({
-        //     title: req.body.title,
-        //     description: req.body.description,
-        //     price: req.body.price,
-        //     category: req.body.category,
-        //     author: token.id
-        // });
-        //
-        // newProduct.save(function (err) {
-        //     if (err) {
-        //         res.status(500).send('Error in save product')
-        //     }
-        // });
-        //
-        // res.send(newProduct)
+        var request = JSON.parse(req.body.jsondata);
+
+        var images = [];
+
+        if(req.files.length > 0){
+            for(var i = 0; i < req.files.length; i++){
+                images.push({
+                    path: req.files[i].path
+                })
+            }
+        }
+
+        var newProduct = new Product({
+            title: request.title,
+            description: request.description,
+            price: request.price,
+            category: request.category,
+            author: token.id,
+            price_buy: request.price_buy,
+            state: request.state,
+            rent_terms: request.rent_terms,
+            city_rent: request.city_rent,
+            area_rent: request.area_rent,
+            delivery_rent: request.delivery_rent,
+            period_rent: request.period_rent,
+            images: images
+        });
+
+        newProduct.save(function (err) {
+            if (err) {
+                res.status(500).send('Error in save product')
+            }
+        });
+
+        res.send(newProduct)
     })
 
     .put('/', function (req, res) {
