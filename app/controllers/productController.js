@@ -18,13 +18,17 @@ var upload = multer({ storage: storage });
 
 
 productController.use(function(req, res, next) {
-    if(tokenMiddleware(req.headers.token)){
+    if((req.url === '/all')){
         next()
     }
     else{
-        res.status(403).send('Failed token auth')
+        if(tokenMiddleware(req.headers.token)){
+            next()
+        }
+        else{
+            res.status(403).send('Failed token auth')
+        }
     }
-
 });
 
 productController
