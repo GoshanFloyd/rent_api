@@ -32,23 +32,11 @@ productController.use(function(req, res, next) {
 });
 
 productController
-    /**
-     *  Get my products
-     *  @method: GET
-     *  @param:
-     *      @var: token
-     *      @type: string
-     *
-     *  @return:
-     *      @var products:
-     *      @type: Array<Product>
-     */
     .get('/',function (req, res) {
         var token = jwt.verify(req.headers.token, secret_key);
 
-        Product.find({author: token._id},function (err, products) {
+        Product.find({author: token.id},function (err, products) {
 
-            console.log(products);
             if (err){
                 res.status(500).send('Error in server')
             }
@@ -57,30 +45,32 @@ productController
         })
     })
     .get('/all', function (req, res) {
-        Product.find({}).limit(100).exec(function (err, docs) {
+        Product.find({status: null}).limit(100).exec(function (err, docs) {
             res.send(docs)
         })
     })
-    /**
-     *  Add product
-     *  @method: POST
-     *      @var: token
-     *      @type: string
-     *
-     *      @var: title,
-     *      @type: string
-     *
-     *      @var: description
-     *      @type: string
-     *
-     *      @var: price
-     *      @type: integer
-     *
-     *      @var category:
-     *      @type: Array<Category>
-     *
-     *
-     */
+    .get('/category/',function (req, res) {
+        Product.find().distinct('category',function (err, categories) {
+            if (err) res.status(404).send('Category not found');
+
+            res.status(200).send(categories)
+        })
+    })
+    .get('/:id',function (req, res) {
+        Product.findById(req.params.id, function (err, product) {
+
+            if (err) res.status(404).send('Product not found');
+
+            res.status(200).send(product)
+        })
+    })
+    .get('/find/:str',function (req, res) {
+        Product.find( { "title": { "$regex": req.params.str, "$options": "i" }}, function (err, products) {
+            if (err) res.status(404).send('Products not found');
+
+            res.status(200).send(products);
+        })
+    })
     .post('/', upload.array('photos'), function (req, res) {
         var token = jwt.verify(req.headers.token, secret_key);
 
@@ -120,7 +110,6 @@ productController
 
         res.send(newProduct)
     })
-
     .put('/', function (req, res) {
         Product.findById(req.body.id, function (err, doc) {
             if (req.body.title){
