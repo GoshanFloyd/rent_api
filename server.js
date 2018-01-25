@@ -23,6 +23,10 @@ app.use('/api/product', productController);
 app.use('/api/category', categoryController);
 app.use('/api/comment', commentController);
 
+app.get('/', function (req, res) {
+    res.status(200).send('All work a very fine.')
+})
+
 app.use('/uploads', express.static('./uploads'));
 
 app.use(function(err, req, res, next) {
