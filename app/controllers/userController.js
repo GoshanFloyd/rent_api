@@ -119,7 +119,7 @@ userController // Main controller on user action's
             role: 'user',
             avatar_image: null,
             blocked: false,
-            phone: req.body.phone,
+            phone: req.body.phone
         }, function (err, user) {
 
             if (err) {
@@ -134,6 +134,37 @@ userController // Main controller on user action's
             })
 
         });
-    });
+    })
+    .put('/', function (req, res) {
+
+        var request = JSON.parse(req.body.jsondata);
+
+
+        User.findById(request.id, function (err, user) {
+
+            if(request.pact_name){
+                user.pact_name = request.pact_name
+            }
+            if(request.pact_surname){
+                user.pact_surname = request.pact_surname
+            }
+            if(request.pact_lastname){
+                user.pact_lastname = request.pact_lastname
+            }
+            if(request.pact_iin){
+                user.pact_iin = request.pact_iin
+            }
+            if(request.pasword){
+                user.password = request.password
+            }
+
+            user.save(function (err) {
+                if(err) res.status(500).send('User dont updated')
+
+                res.status(200).send(user)
+            })
+        })
+    })
+;
 
 module.exports = userController;

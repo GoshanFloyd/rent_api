@@ -12,7 +12,11 @@ var UserSchema = new Schema({
     avatar_image: String,
     blocked: Boolean,
     phone: String,
-    money: { type: Number, default: 0}
+    money: { type: Number, default: 0 },
+    pact_name: { type: String, default: '' },
+    pact_lastname: { type: String, default: '' },
+    pact_surname: { type: String, default: '' },
+    pact_iin: { type: String, default: '' }
 });
 
 var User = mongoose.model('User', UserSchema);
