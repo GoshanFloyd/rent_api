@@ -101,14 +101,17 @@ productController
             period_rent: request.period_rent,
             images: images
         });
-
+        
         newProduct.save(function (err) {
             if (err) {
-                res.status(500).send('Error in save product')
+                console.log(err);
+                res.send(err)
             }
+
+            res.send(newProduct)
         });
 
-        res.send(newProduct)
+
     })
     .put('/', function (req, res) {
         Product.findById(req.body.id, function (err, doc) {

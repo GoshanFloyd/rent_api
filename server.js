@@ -26,9 +26,13 @@ app.use('/api/comment', commentController);
 app.use('/', express.static('./frontend'));
 app.use('/uploads', express.static('./uploads'));
 
+app.get('/', function (req, res) {
+  res.sendFile('./frontend/index.html');
+})
+
 app.use(function(err, req, res, next) {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
+    console.error(err);
+    res.status(500).send(err);
 });
 
 console.log(port);

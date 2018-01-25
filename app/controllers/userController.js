@@ -9,7 +9,7 @@ userController.use(function(req, res, next) {
 
     console.log(req.url);
 
-    if((req.url === '/auth' || req.url ==='/create')){
+    if((req.url === '/auth' || req.url ==='/create') || req.method == 'GET'){
         next()
     }
     else{
@@ -87,6 +87,16 @@ userController // Main controller on user action's
             res.send(user)
         })
 
+    })
+
+    .get('/:id', function (req, res) {
+        User.findById(req.params.id, function (err, user) {
+            if(err){
+                res.status(500).send('User not found')
+            }
+
+            res.send(user)
+        })
     })
 
     /**
